@@ -1,0 +1,3 @@
+django-admin startproject <projectname>         - init django project
+
+then need to make our folder "Sources root"
