@@ -27,7 +27,7 @@ def password_generator(password_len: int, include_punctuation = False):
     return password
 
 #second option
-    #return''.join(random.choice(pattern) for _ in range(password_len))
+    #return''.join(random.choice(pattern) for _ in range(password_len)) ///
 
 
 print(password_generator(15, include_punctuation=True))
