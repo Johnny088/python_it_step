@@ -1,3 +1,14 @@
 django-admin startproject <projectname>         - init django project
 
 then need to make our folder "Sources root"
+
+
+python manage.py startapp <назва>               - making a first service
+then need to add name to the settings.py
+
+python manage.py runserver                    - run server
+
+
+python manage.py makemigrations               -  add migrations
+
+python manage.py migrate                     - send migration
