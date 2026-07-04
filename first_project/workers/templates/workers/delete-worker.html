@@ -1,0 +1,12 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %} Delete worker {{ worker.id }} {% endblock %}
+
+{% block content %}
+    <h1> deleting {{ worker.name }}</h1>
+    <form method="post">
+    {% csrf_token %}
+    <button type="submit">Delete</button>
+    </form>
+{% endblock %}

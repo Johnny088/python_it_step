@@ -1,4 +1,6 @@
 {% load static %}
+
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,18 +8,24 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{% block title %} {% endblock %}</title>
+
     <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+
+    {% block extra_css %}
+
+    {% endblock %}
+
+    <title>{% block title %} {% endblock %}</title>
 </head>
 <body>
 
 <header>
 
     <nav class="navbar">
-    <img src="" class="nav-logo"  alt="logo">
+    <img src="/main/" class="nav-logo"  alt="logo">
     <ul class="nav-links">
-        <li><a href="#">Main</a></li>
-        <li><a href="#">All developers</a></li>
+        <li><a href="{% url 'index' %}">Main</a></li>
+        <li><a href="{% url 'all_workers' %}">All developers</a></li>
         <li><a href="#">About us</a></li>
         <li><a href="#">Contacts</a></li>
     </ul>
