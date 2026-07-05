@@ -9,3 +9,23 @@ class Worker(models.Model):
 
     def __str__(self):
         return f'{self.name}: ${self.salary}'
+
+
+
+class Resume(models.Model):
+    # worker = models.ForeignKey(Worker, on_delete=models.CASCADE)  #one to many
+    worker = models.OneToOneField(Worker, on_delete=models.CASCADE)  #one to one
+    date_created = models.DateField(auto_now_add=True)
+    description = models.TextField()
+
+    def __str__(self):
+        return f'CV: {self.worker.name}'
+
+class Contact(models.Model):
+    worker = models.ForeignKey(Worker, on_delete=models.CASCADE, related_name='contacts')
+    type = models.CharField(max_length=50)
+    value = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f"{self.type}: {self.value}"
+

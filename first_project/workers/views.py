@@ -1,8 +1,8 @@
-from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, DetailView, DeleteView
 
-from workers.models import Worker
+from workers.models import Worker, Resume
 
 # Create your views here.
 
@@ -31,3 +31,25 @@ class WorkerDeleteView(DeleteView):
     template_name = 'workers/delete-worker.html'
     context_object_name = 'worker'
     success_url = reverse_lazy('all_workers')
+
+class ResumeCreateView(CreateView):
+    model = Resume
+    fields = ['description']
+    template_name = 'workers/create-resume.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        self.worker = get_object_or_404(Worker, pk=kwargs['worker_id'])
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['worker'] = self.worker
+        return context
+
+    def form_valid(self, form):
+        form.instance.worker = self.worker
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('detail_worker', kwargs={'pk':self.worker.id})
+

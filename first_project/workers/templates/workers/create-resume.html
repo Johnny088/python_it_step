@@ -1,0 +1,14 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %} Create Worker CV for {{ worker.name }} {% endblock %}
+
+{% block content %}
+    <h1>Create Worker CV for {{ worker.name }} </h1>
+    <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">create</button>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %} Contacts  {% endblock %}
+
+{% block content %}
+    <h2>Contacts</h2>
+    {% if worker.contacts.exists %}
+    {% for contact in worker.contacts.all %}
+        <p>{{ contact.type }}: {{ contact.value }}</p>
+    {% else %}
+        <li> doesn't have any of contacts</li>
+    {% endif %}
+
+{% endblock %}
