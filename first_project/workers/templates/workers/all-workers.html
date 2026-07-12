@@ -9,16 +9,29 @@
 
 {% block content %}
     <ul  class="worker-buttons">
-    <li><a class="btn create" href="{% url 'create_worker' %}"> Add a new worker</a></li>
+    {% if perms.workers.add_worker %}
+        <li><a class="btn create" href="{% url 'create_worker' %}"> Add a new worker</a></li>
+    {% endif %}
+    <li><a class="btn create" href="{% url 'search_worker' %}">Search</a></li>
+
+
     </ul>
     <h1>All workers: </h1>
     {% for worker in all_workers  %}
         <h2>{{worker}}</h2>
 
         <ul class="worker-buttons">
+
             <li><a class="btn details" href="{% url 'detail_worker' worker.id  %}">view</a></li>
-            <li><a class="btn edit" href="#">edit</a></li>
-            <li><a class="btn delete" href="{% url 'delete_worker' worker.id %}">delete</a></li>
+
+            {% if perms.workers.change_worker %}
+                <li><a class="btn edit" href="#">edit</a></li>
+            {% endif %}
+
+            {% if perms.workers.delete_worker %}
+                <li><a class="btn delete" href="{% url 'delete_worker' worker.id %}">delete</a></li>
+            {% endif %}
+
         </ul>
 
     {% endfor %}

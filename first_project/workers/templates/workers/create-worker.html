@@ -1,6 +1,10 @@
 {% extends 'main/base.html' %}
 {% load static %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{%static 'workers/css/worker-form.css' %}">
+{% endblock %}
+
 {% block title %}  {% endblock %}
 
 {% block content %}
@@ -12,3 +16,5 @@
     </form>
 
 {% endblock %}
+
+

@@ -6,6 +6,7 @@ import datetime
 
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
+from django.contrib.auth.models import Group
 
 
 # Create your views here.
@@ -24,6 +25,10 @@ class SignUpView(CreateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
+        hr_group, created = Group.objects.get_or_create(name = 'HR')
+        self.object.groups.add(hr_group)
+
+
         login(self.request,self.object)
         return response
 
