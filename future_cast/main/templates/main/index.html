@@ -1,0 +1,12 @@
+{% extends 'main/base.html' %}
+{% block title %} Main page {% endblock%}
+
+{% block content %}
+
+    <div class="flex flex-col my-16">
+        <h1 class="text-3xl mb-4">Welcome to the main page</h1>
+        <p class="mb-4">Current date is: {{date}}</p>
+        <i class="text-cyan-700">{{predictions}}</i>
+    </div>
+
+{% endblock %}

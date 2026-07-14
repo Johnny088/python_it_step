@@ -1,0 +1,49 @@
+pypi.org - python packages
+
+                            how to make a django project
+
+    install django - pip install django
+
+    django-admin startproject <Project Name>
+
+    then right-click on the project folder => Mark Directory as ==> Source Root
+
+    our folder will become blue
+
+                          how to work with django
+
+    python manage.py startapp <name of service> - making a new service
+
+        then need to do migration
+
+            python manage.py makemigrations - prepare migration
+
+            python manage.py migrate - send migrations
+
+    python manage.py createsuperuser - create superuser after the first migration
+
+
+    python manage.py runserver - Running the server
+
+                        how to work with new services
+
+    first need to write route for index page in project urls.py
+
+    then need to add the created service to installed app in settings.py
+
+    then create urls.py for the new service ==> add urlpatterns = []
+
+
+    then need to create view
+
+    import view into urls.py
+
+    then need to create html files ==> templates/main/base.html - template
+    and templates/main/index.html
+
+    for html need to create repository main/static/main/css/style.css
+
+    need to include it to the base html like that ==> {% load static %} before !DOCTYPE
+
+
+
