@@ -1,0 +1,26 @@
+{% extends 'post/base.html' %}
+
+{% block title %}Blog Posts{% endblock %}
+
+{% block content %}
+<header class="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
+    <h1 class="text-2xl font-bold text-gray-800">Blog Posts</h1>
+    <a href="{% url 'create_post' %}" class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-4 rounded-lg transition-colors">
+        Create Post
+    </a>
+</header>
+
+<div class="space-y-4">
+    {% for post in posts %}
+        <div class="bg-gray-50 border border-gray-200 p-5 rounded-lg">
+            <div class="flex justify-between items-center text-xs text-gray-500 mb-2">
+                <span class="font-semibold text-gray-900 text-sm">@{{ post.author }}</span>
+                <span>{{ post.created_at|date:"M d, Y H:i" }}</span>
+            </div>
+            <p class="text-gray-700 whitespace-pre-wrap leading-relaxed">{{ post.text }}</p>
+        </div>
+    {% empty %}
+        <p class="text-center text-gray-400 py-8">No posts yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}
