@@ -45,5 +45,109 @@ pypi.org - python packages
 
     need to include it to the base html like that ==> {% load static %} before !DOCTYPE
 
+                        Working with models
+
+    python manage.py startapp <name>  -  making a new service
+
+    need to add urls.py
+    need to add: "urlpatterns = []"  into global url
+
+    then templates/<name> and ==>
+         static/<name>/css/style.css
+
+    then need to add into  settings.py(<project's name folder)  path(.....)
+
+    and add <"name of the app"> into Installed_apps and local as well
+
+    then need to create the file models.py
+
+    add Class
+
+    example ==>
+                class Worker(models.Model):
+                    --init-- doesn't use here
+                    name = models.CharField(max_length=50, blank=False, null=False)
+                    salary = models.IntegerField(default=0)
+                    note = models.TextField()
+                    ...
+
+
+    then migrations
+
+                    ---------------------------------------------------------------
+
+    then need to open admin.py (our app folder)
+
+    make import model
+
+        from workers.models import Worker
+        admin.site.register(Worker)
+
+            this adds model into the admin panel
+
+            to show it in a good way in admin panel need to rewrite string method
+
+
+                    ----------------------------------------------------------------
+
+    then need to create views.py
+
+    from workers.models import Worker
+
+    def all_workers(request):                                                         // function ==> with _ //classes use camel case
+        context = {
+            'all_workers': Worker.objects.all()
+        }
+        return render(request, 'workers/all-workers.html', context)
+
+            --------------------------------------------------
+
+    then go to the urls.py
+    need to add the path
+
+    urlpatterns = [
+
+        path("all/", all_workers<name of the created function>, name="all_workers"),
+    ]
+
+    then we make html file with the same name as choosen name in view
+    need to include the base html template
+
+        {% extends 'main/base.html' %}
+        {% load static %}
+
+        {% block title %}  {% endblock %}
+
+        {% block content %}
+
+        {% endblock %}
+
+    as a button we use tag "a"
+
+                            for CRUD need to add views for it
+            class WorkerCreateView(CreateView):
+                model = Worker
+                fields = ['name', 'salary', 'note']
+                template_name = 'workers/create-worker.html'
+                success_url = reverse_lazy('all_workers')
+
+            then need to make a path in url path('create/', WorkerCreateView.as_view(), name 'create-worker'
+
+                ---------------------------------------------------
+
+            then we create html file with the name from WorkerCreateView, in this case create-worker.html
+
+                    form for the method post (create)
+                        <form method="post">
+                        {% csrf_token %}                   // without csfr_token it doesn't work at all
+
+                        {{form.as_p}}                      // each element of form as a tag "p"
+
+                        button submit
+
+                        <form/>
+
+            then we need to bind our button
+            href="{% url 'create_worker' %}"
 
 
