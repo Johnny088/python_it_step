@@ -1,0 +1,153 @@
+pypi.org - python packages
+
+                            how to make a django project
+
+    install django - pip install django
+
+    django-admin startproject <Project Name>
+
+    then right-click on the project folder => Mark Directory as ==> Source Root
+
+    our folder will become blue
+
+                          how to work with django
+
+    python manage.py startapp <name of service> - making a new service
+
+        then need to do migration
+
+            python manage.py makemigrations - prepare migration
+
+            python manage.py migrate - send migrations
+
+    python manage.py createsuperuser - create superuser after the first migration
+
+
+    python manage.py runserver - Running the server
+
+                        how to work with new services
+
+    first need to write route for index page in project urls.py
+
+    then need to add the created service to installed app in settings.py
+
+    then create urls.py for the new service ==> add urlpatterns = []
+
+
+    then need to create view
+
+    import view into urls.py
+
+    then need to create html files ==> templates/main/base.html - template
+    and templates/main/index.html
+
+    for html need to create repository main/static/main/css/style.css
+
+    need to include it to the base html like that ==> {% load static %} before !DOCTYPE
+
+                        Working with models
+
+    python manage.py startapp <name>  -  making a new service
+
+    need to add urls.py
+    need to add: "urlpatterns = []"  into global url
+
+    then templates/<name> and ==>
+         static/<name>/css/style.css
+
+    then need to add into  settings.py(<project's name folder)  path(.....)
+
+    and add <"name of the app"> into Installed_apps and local as well
+
+    then need to create the file models.py
+
+    add Class
+
+    example ==>
+                class Worker(models.Model):
+                    --init-- doesn't use here
+                    name = models.CharField(max_length=50, blank=False, null=False)
+                    salary = models.IntegerField(default=0)
+                    note = models.TextField()
+                    ...
+
+
+    then migrations
+
+                    ---------------------------------------------------------------
+
+    then need to open admin.py (our app folder)
+
+    make import model
+
+        from workers.models import Worker
+        admin.site.register(Worker)
+
+            this adds model into the admin panel
+
+            to show it in a good way in admin panel need to rewrite string method
+
+
+                    ----------------------------------------------------------------
+
+    then need to create views.py
+
+    from workers.models import Worker
+
+    def all_workers(request):                                                         // function ==> with _ //classes use camel case
+        context = {
+            'all_workers': Worker.objects.all()
+        }
+        return render(request, 'workers/all-workers.html', context)
+
+            --------------------------------------------------
+
+    then go to the urls.py
+    need to add the path
+
+    urlpatterns = [
+
+        path("all/", all_workers<name of the created function>, name="all_workers"),
+    ]
+
+    then we make html file with the same name as choosen name in view
+    need to include the base html template
+
+        {% extends 'main/base.html' %}
+        {% load static %}
+
+        {% block title %}  {% endblock %}
+
+        {% block content %}
+
+        {% endblock %}
+
+    as a button we use tag "a"
+
+                            for CRUD need to add views for it
+            class WorkerCreateView(CreateView):
+                model = Worker
+                fields = ['name', 'salary', 'note']
+                template_name = 'workers/create-worker.html'
+                success_url = reverse_lazy('all_workers')
+
+            then need to make a path in url path('create/', WorkerCreateView.as_view(), name 'create-worker'
+
+                ---------------------------------------------------
+
+            then we create html file with the name from WorkerCreateView, in this case create-worker.html
+
+                    form for the method post (create)
+                        <form method="post">
+                        {% csrf_token %}                   // without csfr_token it doesn't work at all
+
+                        {{form.as_p}}                      // each element of form as a tag "p"
+
+                        button submit
+
+                        <form/>
+
+            then we need to bind our button
+            href="{% url 'create_worker' %}"
+
+
