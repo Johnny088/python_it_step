@@ -1,0 +1,23 @@
+{% extends 'movie/base.html' %}
+
+{% block content %}
+<h1 class="text-3xl font-bold mb-6">Upcoming Showtimes for All Movies</h1>
+
+{% if showtimes %}
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    {% for showtime in showtimes %}
+      <div class="bg-white p-4 rounded-xl shadow border">
+        <h2 class="text-xl font-bold mb-1">
+          <a href="{% url 'movie_detail' showtime.movie.pk %}" class="hover:underline text-blue-600">
+            {{ showtime.movie.title }}
+          </a>
+        </h2>
+        <p class="text-gray-700 font-medium">{{ showtime.date_time|date:"D, d M Y - H:i" }}</p>
+        <p class="text-sm text-gray-500">Hall #{{ showtime.hall_number }}</p>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="text-gray-500">No upcoming showtimes available.</p>
+{% endif %}
+{% endblock %}

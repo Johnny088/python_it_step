@@ -1,0 +1,12 @@
+{% extends 'movie/base.html' %}
+
+{% block content %}
+<div class="max-w-xl mx-auto bg-white p-6 rounded-xl shadow-sm border">
+    <h1 class="text-2xl font-bold mb-6">{% if object %}Edit Movie{% else %}Add Movie{% endif %}</h1>
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="w-full bg-blue-600 text-white py-2.5 rounded-lg hover:bg-blue-700 font-medium">Save</button>
+    </form>
+</div>
+{% endblock %}

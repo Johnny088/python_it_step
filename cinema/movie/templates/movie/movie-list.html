@@ -1,0 +1,26 @@
+{% extends 'movie/base.html' %}
+
+{% block content %}
+<h1 class="text-3xl font-bold mb-6">All Movies</h1>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    {% for movie in movies %}
+        <div class="bg-white rounded-xl shadow-sm border overflow-hidden flex flex-col">
+            <img src="{{ movie.poster }}" alt="{{ movie.title }}" class="w-full h-64 object-cover bg-gray-200">
+            <div class="p-5 flex flex-col flex-grow">
+                <h2 class="text-xl font-bold">{{ movie.title }}</h2>
+                <p class="text-sm text-gray-500 mb-2">{{ movie.genre }} • {{ movie.release_year }} • {{ movie.duration }} min</p>
+                <div class="mt-auto pt-4 flex justify-between items-center border-t">
+                    <a href="{% url 'movie_detail' movie.pk %}" class="text-blue-600 hover:underline text-sm font-medium">Details</a>
+                    <div class="space-x-2 text-sm">
+                        <a href="{% url 'movie_edit' movie.pk %}" class="text-gray-600 hover:text-black">Edit</a>
+                        <a href="{% url 'movie_delete' movie.pk %}" class="text-red-600 hover:text-red-800">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p class="text-gray-500">No movies found.</p>
+    {% endfor %}
+</div>
+{% endblock %}
